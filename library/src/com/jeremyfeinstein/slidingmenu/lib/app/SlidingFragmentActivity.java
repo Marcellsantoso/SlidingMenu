@@ -6,9 +6,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
+import com.iapps.libs.generics.GenericFragmentActivity;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-public class SlidingFragmentActivity extends FragmentActivity implements SlidingActivityBase {
+public class SlidingFragmentActivity extends GenericFragmentActivity implements SlidingActivityBase {
 
 	private SlidingActivityHelper mHelper;
 
@@ -130,6 +131,10 @@ public class SlidingFragmentActivity extends FragmentActivity implements Sliding
 	 */
 	public void showSecondaryMenu() {
 		mHelper.showSecondaryMenu();
+	}
+	
+	public void toggle(int width){
+		mHelper.toggle(width);
 	}
 
 	/* (non-Javadoc)

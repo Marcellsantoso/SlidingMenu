@@ -178,6 +178,10 @@ public class SlidingActivityHelper {
 	public void toggle() {
 		mSlidingMenu.toggle();
 	}
+	
+	public void toggle(int width){
+		mSlidingMenu.toggle(true, width);
+	}
 
 	/**
 	 * Close the SlidingMenu and show the content view.
@@ -200,6 +204,7 @@ public class SlidingActivityHelper {
 	public void showSecondaryMenu() {
 		mSlidingMenu.showSecondaryMenu();
 	}
+	
 
 	/**
 	 * On key up.
