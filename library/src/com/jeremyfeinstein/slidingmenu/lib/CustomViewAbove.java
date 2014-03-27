@@ -283,8 +283,6 @@ public class CustomViewAbove extends ViewGroup {
 			destX = getDestScrollX(mCurItem);
 		else
 			destX = width * -1;
-		Log.e("result", "setCurrentItemInternal - curItem : " + mCurItem
-				+ " || destX : " + destX);
 
 		curX = destX;
 
@@ -828,17 +826,12 @@ public class CustomViewAbove extends ViewGroup {
 						/ getBehindWidth();
 				final int activePointerIndex = getPointerIndex(ev,
 						mActivePointerId);
-				Log.e("result", "velocity : " + initialVelocity);
 				if (mActivePointerId != INVALID_POINTER) {
 					final float x = MotionEventCompat.getX(ev,
 							activePointerIndex);
 					final int totalDelta = (int) (x - mInitialMotionX);
-					Log.e("result", "delta : " + totalDelta);
 					int nextPage = determineTargetPage(pageOffset,
 							initialVelocity, totalDelta);
-					Log.e("result",
-							"scrollX : " + scrollX + "mViewBehind.getLeft : "
-									+ mViewBehind.getMenuLeft(mContent, 0));
 					if (scrollX <= 0
 							&& scrollX >= BaseConverter.convertToDp(
 									getContext(), 68)) {
@@ -872,7 +865,6 @@ public class CustomViewAbove extends ViewGroup {
 					&& mViewBehind.menuTouchInQuickReturn(mContent, mCurItem,
 							ev.getX() + mScrollX)) {
 				// close the menu
-				Log.e("result", "close");
 				setCurrentItem(1);
 				endDrag();
 			}
