@@ -330,8 +330,6 @@ public class CustomViewBehind extends ViewGroup {
 	}
 
 	public boolean menuTouchInQuickReturn(View content, int currPage, float x) {
-		Log.e("result", "menuTouchInQuickReturn - x : " + x
-				+ " || content.getLeft : " + content.getLeft());
 		if (mMode == SlidingMenu.LEFT
 				|| (mMode == SlidingMenu.LEFT_RIGHT && currPage == 0)) {
 			return x >= content.getLeft();

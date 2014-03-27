@@ -808,9 +808,6 @@ public class CustomViewAbove extends ViewGroup {
 				}
 				// Don't lose the rounded component
 				mLastMotionX += scrollX - (int) scrollX;
-				// Log.e("result", "OnTouchEvent - Move - Drag - ScrollX :"
-				// + scrollX + " || leftBound : " + leftBound
-				// + " || mLastMotionX : " + mLastMotionX);
 				scrollTo((int) scrollX, getScrollY());
 				pageScrolled((int) scrollX);
 			}
@@ -832,25 +829,25 @@ public class CustomViewAbove extends ViewGroup {
 					final int totalDelta = (int) (x - mInitialMotionX);
 					int nextPage = determineTargetPage(pageOffset,
 							initialVelocity, totalDelta);
-					if (scrollX <= 0
-							&& scrollX >= BaseConverter.convertToDp(
-									getContext(), 68)) {
-						setCurrentItemInternal(nextPage, true, true,
-								initialVelocity, scrollX);
-						mViewBehind.setChildrenEnabled(true);
-					} else if (scrollX <= mViewBehind.getMenuLeft(mContent, 0) / 2
-							&& scrollX >= mViewBehind.getMenuLeft(mContent, 0)) {
-						if (initialVelocity > 0){
+					if (initialVelocity < 0) {
+						setCurrentItemInternal(1, true, true, initialVelocity,
+								0);
+					} else {
+						if (scrollX <= 0
+								&& scrollX >= BaseConverter.convertToDp(
+										getContext(), 68) * -1) {
+							setCurrentItemInternal(3, true, true,
+									initialVelocity,
+									BaseConverter.convertToDp(getContext(), 48));
+							mViewBehind.setChildrenEnabled(true);
+						} else if (scrollX >= mViewBehind.getMenuLeft(mContent,
+								0)) {
 							setCurrentItemInternal(0, true, true,
 									initialVelocity, 0);
-						}else{
-							setCurrentItemInternal(1, true, true,
+						} else {
+							setCurrentItemInternal(nextPage, true, true,
 									initialVelocity, 0);
 						}
-						
-					} else {
-						setCurrentItemInternal(nextPage, true, true,
-								initialVelocity, 0);
 					}
 				} else {
 					setCurrentItemInternal(mCurItem, true, true,
