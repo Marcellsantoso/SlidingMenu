@@ -201,7 +201,6 @@ public class CustomViewAbove extends ViewGroup {
 						mViewBehind.setChildrenEnabled(true);
 						break;
 					case 1:
-
 						mViewBehind.setChildrenEnabled(false);
 						break;
 					}
@@ -374,8 +373,8 @@ public class CustomViewAbove extends ViewGroup {
 		switch (page) {
 		case 0:
 			return mViewBehind.getMenuLeft(mContent, page);
-		case 2:
 		case 3:
+		case 2:
 		case 1:
 			return mContent.getLeft();
 		}
@@ -395,7 +394,7 @@ public class CustomViewAbove extends ViewGroup {
 	}
 
 	public boolean isMenuOpen() {
-		return mCurItem == 0;
+		return mCurItem == 0 || mCurItem == 3;
 	}
 
 	private boolean isInIgnoredView(MotionEvent ev) {
@@ -839,7 +838,7 @@ public class CustomViewAbove extends ViewGroup {
 							setCurrentItemInternal(3, true, true,
 									initialVelocity,
 									BaseConverter.convertToDp(getContext(), 48));
-							mViewBehind.setChildrenEnabled(true);
+							mViewBehind.setChildrenEnabled(false);
 						} else if (scrollX >= mViewBehind.getMenuLeft(mContent,
 								0)) {
 							setCurrentItemInternal(0, true, true,
