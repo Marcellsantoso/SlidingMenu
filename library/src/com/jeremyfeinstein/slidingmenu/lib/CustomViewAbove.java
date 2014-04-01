@@ -394,7 +394,11 @@ public class CustomViewAbove extends ViewGroup {
 	}
 
 	public boolean isMenuOpen() {
-		return mCurItem == 0 || mCurItem == 3;
+		return mCurItem == 0;
+	}
+
+	public boolean isMenuOpenHalf() {
+		return mCurItem == 3;
 	}
 
 	private boolean isInIgnoredView(MotionEvent ev) {
@@ -660,6 +664,7 @@ public class CustomViewAbove extends ViewGroup {
 		if (isMenuOpen()) {
 			return mViewBehind.menuOpenTouchAllowed(mContent, mCurItem, x);
 		} else {
+
 			switch (mTouchMode) {
 			case SlidingMenu.TOUCHMODE_FULLSCREEN:
 				return !isInIgnoredView(ev);
@@ -695,7 +700,7 @@ public class CustomViewAbove extends ViewGroup {
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
-
+		Log.d("result", "onIntercept!");
 		if (!mEnabled)
 			return false;
 
@@ -726,9 +731,9 @@ public class CustomViewAbove extends ViewGroup {
 			if (thisTouchAllowed(ev)) {
 				mIsBeingDragged = false;
 				mIsUnableToDrag = false;
-				if (isMenuOpen()
+				if (isMenuOpenHalf() ||(isMenuOpen()
 						&& mViewBehind.menuTouchInQuickReturn(mContent,
-								mCurItem, ev.getX() + mScrollX)) {
+								mCurItem, ev.getX() + mScrollX))) {
 					mQuickReturn = true;
 				}
 			} else {
@@ -752,6 +757,7 @@ public class CustomViewAbove extends ViewGroup {
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 
+		Log.d("result", "onTouchEvent!");
 		if (!mEnabled)
 			return false;
 
@@ -863,6 +869,8 @@ public class CustomViewAbove extends ViewGroup {
 				// close the menu
 				setCurrentItem(1);
 				endDrag();
+			} else {
+				setCurrentItem(1, true);
 			}
 			break;
 		case MotionEvent.ACTION_CANCEL:
