@@ -661,7 +661,7 @@ public class CustomViewAbove extends ViewGroup {
 
 	private boolean thisTouchAllowed(MotionEvent ev) {
 		int x = (int) (ev.getX() + mScrollX);
-		if (isMenuOpen()) {
+		if (isMenuOpen() || isMenuOpenHalf()) {
 			return mViewBehind.menuOpenTouchAllowed(mContent, mCurItem, x);
 		} else {
 
@@ -700,7 +700,6 @@ public class CustomViewAbove extends ViewGroup {
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		Log.d("result", "onIntercept!");
 		if (!mEnabled)
 			return false;
 
@@ -756,8 +755,6 @@ public class CustomViewAbove extends ViewGroup {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
-
-		Log.d("result", "onTouchEvent!");
 		if (!mEnabled)
 			return false;
 
@@ -844,7 +841,7 @@ public class CustomViewAbove extends ViewGroup {
 							setCurrentItemInternal(3, true, true,
 									initialVelocity,
 									BaseConverter.convertToDp(getContext(), 48));
-							mViewBehind.setChildrenEnabled(false);
+							mViewBehind.setChildrenEnabled(true);
 						} else if (scrollX >= mViewBehind.getMenuLeft(mContent,
 								0)) {
 							setCurrentItemInternal(0, true, true,
