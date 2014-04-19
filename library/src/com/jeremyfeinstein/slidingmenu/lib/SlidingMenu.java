@@ -14,7 +14,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -230,12 +229,15 @@ public class SlidingMenu extends RelativeLayout {
 		mViewAbove.setCustomViewBehind(mViewBehind);
 		mViewBehind.setCustomViewAbove(mViewAbove);
 		mViewAbove.setOnPageChangeListener(new OnPageChangeListener() {
+
 			public static final int POSITION_OPEN = 0;
 			public static final int POSITION_CLOSE = 1;
 			public static final int POSITION_SECONDARY_OPEN = 2;
 
-			public void onPageScrolled(int position, float positionOffset,
-					int positionOffsetPixels) {
+			public
+					void onPageScrolled(
+							int position, float positionOffset,
+							int positionOffsetPixels) {
 
 			}
 
@@ -349,8 +351,8 @@ public class SlidingMenu extends RelativeLayout {
 	 * @param actionbarOverlay
 	 *            whether or not the ActionBar is overlaid
 	 */
-	public void attachToActivity(Activity activity, int slideStyle,
-			boolean actionbarOverlay) {
+	public void attachToActivity(
+			Activity activity, int slideStyle, boolean actionbarOverlay) {
 		if (slideStyle != SLIDING_WINDOW && slideStyle != SLIDING_CONTENT)
 			throw new IllegalArgumentException(
 					"slideStyle must be either SLIDING_WINDOW or SLIDING_CONTENT");
@@ -629,8 +631,20 @@ public class SlidingMenu extends RelativeLayout {
 			else
 				showContent();
 		} else {
-			showMenu(animate, BaseConverter.convertToDp(getContext(), 48));
+			if (width > 0)
+				showMenu(animate, width);
+			else
+				showMenu();
 		}
+
+		// if (isMenuShowing()) {
+		// if (isMenuShowingHalf())
+		// showMenu(animate);
+		// else
+		// showContent();
+		// } else {
+		// showMenu(animate, BaseConverter.convertToDp(getContext(), 48));
+		// }
 	}
 
 	/**
@@ -1096,6 +1110,7 @@ public class SlidingMenu extends RelativeLayout {
 		}
 
 		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+
 			public SavedState createFromParcel(Parcel in) {
 				return new SavedState(in);
 			}
@@ -1161,6 +1176,7 @@ public class SlidingMenu extends RelativeLayout {
 
 		if (layerType != getContent().getLayerType()) {
 			getHandler().post(new Runnable() {
+
 				public void run() {
 					Log.v(TAG, "changing layerType. hardware? "
 							+ (layerType == View.LAYER_TYPE_HARDWARE));
